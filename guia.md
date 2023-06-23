@@ -41,3 +41,53 @@ range(star, stop, step)
 
 * **step** Es un número entero que especifica el incremento y por defecto es 1.
 
+## Lecturas analógicas
+
+El ESP32DEVKIT tiene 15 líneas que se pueden emplear para introducir señales analógicas, así que hay que consultar el PINOUT, para identificar la entrada analógica.
+
+El ESP32 DEVKIT tiene un ADC con una resolución de 12 bits y el rango de voltje de la señal analógica va de 0 a 3.3Vcd, así que hay que tener mucho cuidado de no exceder el límite para no dañar el dispositivo.
+
+### Pasos a seguir
+
+1. Para leer las entradas analógicas se importan las clases **ADC** y **Pin** del módulo **machine.**
+
+`from machine import ADC, Pin`
+`from time import sleep`
+
+
+2. Se crea un objeto ADC para que adquiera el valor a través de la GPIO 34, y se le asigna a la variable de nombre **pot.**
+
+`pot=ADC(Pin(34))`
+
+3. Para leer el rango completo de voltaje, 0 a 3.3V, es necesario establecer la relación de atenuación de **11dB**, mediante el método **atten()**, los argumentos validos son los siguientes:
+
+* **ADC.ATTN_0DB** - el voltaje de rango completo es de 1.2V.
+* **ADC.ATTN_2_5DB** - el voltaje de rango completo es de 1.5V.
+* **ADC.ATTN_6DB** - el voltaje de rango completo es de 2.0V.
+* **ADC.ATTN_11DB** - el voltaje de rango completo es de 3.3V.
+
+Si lo que se desea es cambiar la resolución mediante el número de bits de la conversión, se usa el método **width**, de la siguiente manera:
+
+* **ADC.WIDTH_9BIT** - implica un rango de 0 a 511.
+* **ADC.WIDTH_10BIT** - implica un rango de 0 a 1023.
+* **ADC.WIDTH_11BIT** - implica un rango de 0 a 2047.
+* **ADC.WIDTH_12BIT** - implica un rango de 0 a 4095.
+
+Ejemplo:
+
+`ADC.width(ADC.WIDTH_12BIT)`
+
+4. El código completo queda asi:
+
+```
+from machine import Pin, ADC
+from time import sleep
+
+pot = ADC(Pin(34))
+pot.atten(ADC.ATTN_11DB)
+
+while True:
+    potValue = pot.read()
+    print(potValue)
+    sleep(0.1)
+```
