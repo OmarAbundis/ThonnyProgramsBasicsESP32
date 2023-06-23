@@ -8,7 +8,7 @@ En este sencillo ejercicio se controlará la intensidad lumínica de un LED, med
 
 ### Pasos a seguir
 
-1. Hay que identificar en el [PINOUT](https://i1.wp.com/randomnerdtutorials.com/wp-content/uploads/2018/08/ESP32-DOIT-DEVKIT-V1-Board-Pinout-30-GPIOs-Copy.png?w=966&ssl=1), cual de sus terminales permite ser usada para modular pulsos.
+1. Hay que identificar en el [PINOUT](https://circuits4you.com/2018/12/31/esp32-devkit-esp32-wroom-gpio-pinout/), cual de sus terminales permite ser usada para modular pulsos.
 2. Importar las clases Pin y PWM, del módulo **machine.**
 `from machine import Pin, PWM`
 3. Después, crear un objeto **PWM** llamado **led.**
